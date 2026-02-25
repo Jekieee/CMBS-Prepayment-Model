@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Models · Freddie Mac Prepayment Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html#overview">Overview</a>
+        <a href="data.html">Data</a>
+        <a href="models.html">Models</a>
+        <a href="results.html">Results</a>
+        <a href="contacts.html">Contacts</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="model" class="section">
+      <h2>Models</h2>
+      <p>
+        The core pool-level model works at the pool level (quarter × Loan_Age_bin2 × C_R_bin2),
+        fitting the prepayment incidence for each bin-quarter:
+      </p>
+      <ul>
+        <li><strong>Target</strong>: <code>y_incidence = n_prepay / n_loans</code> (quarterly incidence)</li>
+        <li><strong>Likelihood</strong>: Binomial (n_prepay, n_loans - n_prepay) via a GLM</li>
+        <li><strong>Main features</strong>:
+          <ul>
+            <li>Refi S-curve: based on <code>refi_incentive = pool_contract_rate - pool_market_rate</code></li>
+            <li>Seasonal: quarter-of-year dummies <code>qoy</code></li>
+            <li>Seasoning: <code>median_loan_age</code>, <code>seasoning_ramp</code>, <code>log_age</code></li>
+            <li>Burnout: <code>burnout_norm</code>, <code>log_survival</code></li>
+            <li>Rate momentum: <code>market_rate_qoq</code></li>
+          </ul>
+        </li>
+        <li><strong>Regularization</strong>: Ridge (L2) to balance fit and stability.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© Freddie Mac Prepayment Project Demo · Static site for showcasing notebook outputs and documentation.</p>
+    </div>
+  </footer>
+</body>
+</html>
+
