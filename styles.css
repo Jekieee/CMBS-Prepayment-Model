@@ -126,20 +126,51 @@ main.container {
   padding: 2rem 1.5rem;
 }
 
-.cover-content h2 {
+.cover-title {
   font-size: clamp(1.5rem, 4vw, 2.25rem);
   font-weight: 700;
   color: #f9fafb;
   letter-spacing: 0.02em;
   margin-bottom: 0.5rem;
   text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(28px);
+  animation: coverTitleIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
 }
 
-.cover-content p {
+.cover-subtitle {
   font-size: clamp(0.9rem, 2.2vw, 1.05rem);
   color: #cbd5e1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: coverSubtitleIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+}
+
+@keyframes coverTitleIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes coverSubtitleIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .objective-card {
@@ -155,6 +186,9 @@ main.container {
   box-shadow:
     0 24px 60px rgba(15,23,42,0.9),
     0 0 0 1px rgba(15,23,42,0.85);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cardFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
 }
 
 .objective-card h2 {
@@ -209,6 +243,9 @@ main.container {
   box-shadow:
     0 26px 70px rgba(15,23,42,0.9),
     0 0 0 1px rgba(15,23,42,0.85);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cardFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
 }
 
 .hero-text h2 {
@@ -757,7 +794,7 @@ code {
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -767,23 +804,32 @@ code {
 
 .section {
   opacity: 0;
-  animation: fadeUp 0.7s ease-out forwards;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .section:nth-of-type(1) {
-  animation-delay: 0.05s;
-}
-.section:nth-of-type(2) {
   animation-delay: 0.15s;
 }
+.section:nth-of-type(2) {
+  animation-delay: 0.3s;
+}
 .section:nth-of-type(3) {
-  animation-delay: 0.25s;
+  animation-delay: 0.45s;
 }
 .section:nth-of-type(4) {
-  animation-delay: 0.35s;
+  animation-delay: 0.6s;
 }
 .section:nth-of-type(5) {
-  animation-delay: 0.45s;
+  animation-delay: 0.75s;
+}
+.section:nth-of-type(6) {
+  animation-delay: 0.9s;
+}
+.section:nth-of-type(7) {
+  animation-delay: 1.05s;
+}
+.section:nth-of-type(8) {
+  animation-delay: 1.2s;
 }
 
 @media (max-width: 640px) {
