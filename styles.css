@@ -142,6 +142,57 @@ main.container {
   text-transform: uppercase;
 }
 
+.objective-card {
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  padding: 1.8rem 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148,163,184,0.55);
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(16,185,129,0.14), transparent 65%),
+    linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.9));
+  box-shadow:
+    0 24px 60px rgba(15,23,42,0.9),
+    0 0 0 1px rgba(15,23,42,0.85);
+}
+
+.objective-card h2 {
+  font-size: 1.3rem;
+  color: #e5e7eb;
+  margin-bottom: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.objective-card h2::before {
+  content: "";
+  width: 0.32rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #22c55e, #38bdf8);
+}
+
+.objective-card p {
+  color: #e5e7eb;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin-bottom: 0.7rem;
+}
+
+.objective-card ul {
+  margin-left: 1.1rem;
+  margin-top: 0.2rem;
+  color: #d1d5db;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.objective-card li + li {
+  margin-top: 0.2rem;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
