@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Freddie Mac Prepayment Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#data">Data</a>
+        <a href="#model">Model</a>
+        <a href="#bins">Binning</a>
+        <a href="#results">Results</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="cover" aria-label="Cover">
+      <div class="cover-bg"></div>
+      <div class="cover-content">
+        <h2>Freddie Mac CMBS Prepayment Modeling</h2>
+        <p>Pool vs Loan · Static vs ML · Multi-dimensional comparison</p>
+      </div>
+    </section>
+
+    <section class="hero" aria-label="Interactive overview dashboard">
+      <div class="hero-text">
+        <p class="hero-kicker">Interactive overview · Freddie Mac CMBS</p>
+        <h2>Prepayment modeling dashboard</h2>
+        <p class="hero-lead">
+          One-page view of our practicum: compare <strong>granularity</strong> (pool vs loan)
+          and <strong>method</strong> (static vs ML) with CPR, error and lift at a glance.
+        </p>
+        <p class="hero-goal">
+          <strong>Research goal</strong>: quantify and explain CMBS prepayment behavior under
+          different model classes, then benchmark robustness and predictive power for risk management use.
+        </p>
+        <div class="hero-summary-grid">
+          <div class="hero-summary-block">
+            <h3>Data source</h3>
+            <p>Freddie Mac Multi-Family Loan Performance (K-Deal & Fixed Rate) panel<br />+ 10Y U.S. Treasury yields.</p>
+          </div>
+          <div class="hero-summary-block">
+            <h3>4-model framework</h3>
+            <p>Pool · Static, Pool · ML, Loan · Static, Loan · ML.</p>
+          </div>
+        </div>
+        <h3 class="mini-heading">3–5 key takeaways (Freddie Mac arm)</h3>
+        <ul class="hero-takeaways">
+          <li>To be updated...</li>
+          <li>To be updated...</li>
+          <li>To be updated...</li>
+          <li>To be updated...</li>
+        </ul>
+      </div>
+      <div class="hero-dashboard" aria-label="Interactive comparison controls">
+        <div class="hero-controls">
+          <div class="hero-control-group">
+            <span class="hero-control-label">Granularity</span>
+            <div class="hero-control-buttons">
+              <button class="hero-toggle is-active" type="button" data-dim="granularity" data-value="pool">Pool</button>
+              <button class="hero-toggle" type="button" data-dim="granularity" data-value="loan">Loan</button>
+            </div>
+          </div>
+          <div class="hero-control-group">
+            <span class="hero-control-label">Method</span>
+            <div class="hero-control-buttons">
+              <button class="hero-toggle is-active" type="button" data-dim="method" data-value="static">Static</button>
+              <button class="hero-toggle" type="button" data-dim="method" data-value="ml">ML</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-chart-card" aria-live="polite">
+          <header class="hero-chart-header">
+            <div>
+              <p class="hero-chart-title" id="hero-chart-title">Pool · Static · Freddie</p>
+              <p class="hero-chart-subtitle">CPR curve · error profile · lift vs baseline</p>
+            </div>
+            <span class="hero-chart-tag">CPR / Error / Lift</span>
+          </header>
+          <div class="hero-chart-body">
+            <p id="hero-chart-copy" class="hero-chart-copy">
+              Baseline pool-level GLM: CPR follows a smooth S-curve in incentive and a standard seasoning ramp;
+              errors are small in the core bins but widen in sparse tails.
+            </p>
+            <p class="hero-chart-placeholder">
+              Embed a key CPR / error / lift chart here (static PNG or interactive Plotly) when ready.
+            </p>
+          </div>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-card">
+            <p class="metric-label">CPR level</p>
+            <p class="metric-value" id="metric-cpr">~5–15% (by incentive &amp; age)</p>
+            <p class="metric-note" id="metric-cpr-note">Smooth by design via binning and GLM structure.</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Model error</p>
+            <p class="metric-value" id="metric-error">Low in core bins</p>
+            <p class="metric-note" id="metric-error-note">Larger residuals where exposure is thin (extreme incentives / ages).</p>
+          </div>
+          <div class="metric-card">
+            <p class="metric-label">Lift vs baseline</p>
+            <p class="metric-value" id="metric-lift">Interpretability-first</p>
+            <p class="metric-note" id="metric-lift-note">Provides a stable benchmark for ML models to beat.</p>
+          </div>
+          <a class="hero-dive-link" href="#results">Dive deeper into charts &amp; diagnostics →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section">
+      <h2>Project Overview</h2>
+      <p>
+        This project builds a pool-level prepayment model on Freddie Mac CMBS data,
+        using the four-factor framework of Kang &amp; Zenios (1992) (refinancing incentive,
+        seasonal, seasoning, burnout) as a reference, but focusing on
+        <strong>interpretability</strong> and <strong>predictive performance</strong>
+        rather than strict replication.
+      </p>
+      <ul>
+        <li><strong>Scope of this site</strong>: visualizing and explaining models on the Freddie Mac CMBS (K-Deal) dataset only</li>
+        <li><strong>Objective</strong>: Characterize prepayment behavior across loan age × rate incentive bins</li>
+        <li><strong>Granularity</strong>: Pool level (quarter × bin)</li>
+        <li><strong>Key outputs</strong>: CPR / y_incidence, predicted probability p_hat, and error diagnostics</li>
+      </ul>
+      <p>
+        At the practicum level, we compare statistical and machine learning prepayment models
+        across both Fannie Mae DUS CMBS and Freddie Mac CMBS. This website focuses exclusively
+        on the Freddie Mac implementation and the visualization of model behavior on K-Deal data.
+      </p>
+      <h3 class="mini-heading">Project context (condensed from problem statement)</h3>
+      <ul>
+        <li>CMBS prepayments are shaped by lock-out periods, yield maintenance, and step-down penalties.</li>
+        <li>Small, heterogeneous pools and large loan sizes create challenges for traditional econometric models.</li>
+        <li>Machine learning offers flexibility, but benefits must be validated under limited, noisy data.</li>
+        <li>Final deliverables include methodology documentation, Python code, and a formal presentation.</li>
+      </ul>
+    </section>
+
+    <section id="data" class="section">
+      <h2>Data</h2>
+      <p>
+        The dataset is a cleaned Freddie Mac MLPD panel. Key fields include:
+      </p>
+      <ul>
+        <li>Loan identifiers: <code>lnno</code>, deal name: <code>dealname</code></li>
+        <li>Time: <code>quarter</code>, <code>loan_age_quarters</code> (age in quarters)</li>
+        <li>Balances: <code>amt_upb_endg</code>, <code>unified_upb</code></li>
+        <li>Rates &amp; market: <code>rate_int</code>, <code>10Y_yield_pct</code>, <code>C_R</code> (rate differential)</li>
+        <li>Terminal status &amp; flags: <code>prepay_flag</code>, <code>prepay_category</code>, <code>is_prepaid</code></li>
+      </ul>
+      <p>
+        In the notebook we construct <code>df_model</code> via preprocessing, then perform binning
+        and pool-level aggregation on top of it.
+      </p>
+    </section>
+
+    <section id="model" class="section">
+      <h2>Pool-Level Model</h2>
+      <p>
+        The model works at the pool level (quarter × Loan_Age_bin2 × C_R_bin2),
+        fitting the prepayment incidence for each bin-quarter:
+      </p>
+      <ul>
+        <li><strong>Target</strong>: <code>y_incidence = n_prepay / n_loans</code> (quarterly incidence)</li>
+        <li><strong>Likelihood</strong>: Binomial (n_prepay, n_loans - n_prepay) via a GLM</li>
+        <li><strong>Main features</strong>:
+          <ul>
+            <li>Refi S-curve: based on <code>refi_incentive = pool_contract_rate - pool_market_rate</code></li>
+            <li>Seasonal: quarter-of-year dummies <code>qoy</code></li>
+            <li>Seasoning: <code>median_loan_age</code>, <code>seasoning_ramp</code>, <code>log_age</code></li>
+            <li>Burnout: <code>burnout_norm</code>, <code>log_survival</code></li>
+            <li>Rate momentum: <code>market_rate_qoq</code></li>
+          </ul>
+        </li>
+        <li><strong>Regularization</strong>: Ridge (L2) to balance fit and stability</li>
+      </ul>
+    </section>
+
+    <section id="bins" class="section">
+      <h2>Binning Structure (Loan_Age_bin2 × C_R_bin2)</h2>
+      <p>
+        To make the model easier to learn and smoother, we design
+        <strong>smooth binning schemes</strong> for loan age and rate incentive:
+      </p>
+      <div class="grid">
+        <div>
+          <h3>Loan_Age_bin2 (seasoning)</h3>
+          <p>Aligned with a typical seasoning curve:</p>
+          <ul>
+            <li>0: 0–2 quarters (new loans)</li>
+            <li>1: 3–5 quarters (early seasoning)</li>
+            <li>2: 6–8 quarters</li>
+            <li>3: 9–12 quarters (seasoning peak)</li>
+            <li>4: 13–18 quarters</li>
+            <li>5: 19–24 quarters (mature phase)</li>
+            <li>6: 25–30 quarters</li>
+            <li>7: 31–40 quarters</li>
+            <li>8: &gt; 40 quarters (late tail, merged)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>C_R_bin2 (rate differential)</h3>
+          <p>Quantile-based smooth bins for balanced sample sizes, roughly:</p>
+          <ul>
+            <li>0: deep negative incentive (far below market)</li>
+            <li>1: moderate negative</li>
+            <li>2: mild negative</li>
+            <li>3: near-market</li>
+            <li>4: mild positive</li>
+            <li>5: moderate positive</li>
+            <li>6: high positive / extreme tail merged</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <h2>Results &amp; Visualizations</h2>
+      <p>
+        Below you can embed charts exported from the notebook
+        (recommended: export as PNG or HTML into <code>project_site/assets</code>):
+      </p>
+      <ul>
+        <li><strong>CPR / y_incidence heatmap</strong>: Loan_Age_bin2 × C_R_bin2</li>
+        <li><strong>UPB-weighted heatmap</strong>: where the dollar exposure sits across bins</li>
+        <li><strong>Time series</strong>: actual vs predicted CPR over calendar time</li>
+        <li><strong>Scatter</strong>: bin-quarter level Predicted vs Actual</li>
+      </ul>
+
+      <div class="charts-grid">
+        <figure class="chart-card">
+          <img src="assets/cpr_heatmap.png" alt="CPR Heatmap" />
+          <figcaption>CPR Heatmap (placeholder)</figcaption>
+        </figure>
+        <figure class="chart-card">
+          <img src="assets/upb_heatmap.png" alt="UPB Weighted Heatmap" />
+          <figcaption>UPB-weighted heatmap (placeholder)</figcaption>
+        </figure>
+        <figure class="chart-card">
+          <img src="assets/time_series.png" alt="CPR over Time" />
+          <figcaption>Actual vs predicted CPR over time (placeholder)</figcaption>
+        </figure>
+        <figure class="chart-card">
+          <img src="assets/scatter_pred_actual.png" alt="Pred vs Actual Scatter" />
+          <figcaption>Predicted vs actual scatter (placeholder)</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© Freddie Mac Prepayment Project Demo · Static site for showcasing notebook outputs and documentation.</p>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      const state = {
+        granularity: "pool",
+        method: "static"
+      };
+
+      const copyByCombo = {
+        "pool-static": {
+          title: "Pool · Static · Freddie",
+          text:
+            "Baseline pool-level GLM on Freddie Mac K-Deals: CPR follows a smooth S-curve in rate incentive with a pronounced seasoning hump; residuals remain small in high-exposure bins.",
+          cpr: "~5–15% (by incentive & age)",
+          cprNote: "Smooth, interpretable CPR surface aligned with Kang & Zenios style factors.",
+          error: "Low in core bins",
+          errorNote: "Misfit mainly in sparse tails and around structural breaks in the rate environment.",
+          lift: "Interpretability-first",
+          liftNote: "Serves as the benchmark for ML lift and robustness checks."
+        },
+        "pool-ml": {
+          title: "Pool · ML · Freddie",
+          text:
+            "Pool-level ML adds flexible interactions (e.g. incentive × age × burnout), tightening fit especially in the tails while keeping the same pool aggregation.",
+          cpr: "Sharper fit to CPR surface",
+          cprNote: "Captures subtle kinks in incentive and age not modeled in the GLM.",
+          error: "Lower RMSE vs static",
+          errorNote: "Most error reduction occurs in extreme incentive and late-age regions.",
+          lift: "Moderate lift",
+          liftNote: "Good compromise between stability and extra performance at pool level."
+        },
+        "loan-static": {
+          title: "Loan · Static · Freddie",
+          text:
+            "Loan-level static models emphasize traditional factors at individual-loan granularity, but can be noisy under limited observations per bin.",
+          cpr: "Heterogeneous across loans",
+          cprNote: "More dispersion as idiosyncratic loan features enter at the individual level.",
+          error: "Higher variance",
+          errorNote: "Noise and thin data in some strata limit pure static performance.",
+          lift: "Baseline at loan level",
+          liftNote: "Defines a simple, explainable reference for loan-level ML models."
+        },
+        "loan-ml": {
+          title: "Loan · ML · Freddie",
+          text:
+            "Loan-level ML leverages richer feature sets (burnout history, collateral, rate dynamics) to recover cross-sectional lift beyond pool and static benchmarks.",
+          cpr: "Most granular CPR view",
+          cprNote: "Highlights which loans drive pool-level prepayment tails.",
+          error: "Lowest out-of-sample error",
+          errorNote: "Best predictive power, subject to careful regularization and validation.",
+          lift: "Highest lift",
+          liftNote: "Maximizes predictive accuracy while requiring extra care on stability and explainability."
+        }
+      };
+
+      const titleEl = document.getElementById("hero-chart-title");
+      const copyEl = document.getElementById("hero-chart-copy");
+      const cprEl = document.getElementById("metric-cpr");
+      const cprNoteEl = document.getElementById("metric-cpr-note");
+      const errEl = document.getElementById("metric-error");
+      const errNoteEl = document.getElementById("metric-error-note");
+      const liftEl = document.getElementById("metric-lift");
+      const liftNoteEl = document.getElementById("metric-lift-note");
+
+      function render() {
+        const key = state.granularity + "-" + state.method;
+        const cfg = copyByCombo[key];
+        if (!cfg) {
+          return;
+        }
+        if (titleEl) titleEl.textContent = cfg.title;
+        if (copyEl) copyEl.textContent = cfg.text;
+        if (cprEl) cprEl.textContent = cfg.cpr;
+        if (cprNoteEl) cprNoteEl.textContent = cfg.cprNote;
+        if (errEl) errEl.textContent = cfg.error;
+        if (errNoteEl) errNoteEl.textContent = cfg.errorNote;
+        if (liftEl) liftEl.textContent = cfg.lift;
+        if (liftNoteEl) liftNoteEl.textContent = cfg.liftNote;
+      }
+
+      const toggles = document.querySelectorAll(".hero-toggle");
+      toggles.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const dim = btn.getAttribute("data-dim");
+          const value = btn.getAttribute("data-value");
+          if (!dim || !value || !(dim in state)) {
+            return;
+          }
+          state[dim] = value;
+          const group = btn.closest(".hero-control-group");
+          if (group) {
+            group.querySelectorAll(".hero-toggle").forEach(function (b) {
+              b.classList.toggle("is-active", b === btn);
+            });
+          }
+          render();
+        });
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
+
