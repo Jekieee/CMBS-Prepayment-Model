@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="theme.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,30 +17,146 @@
       <nav class="nav">
         <a href="index.html">Overview</a>
         <a href="data.html">Data</a>
-        <a href="models.html">Models</a>
-        <a href="results.html">Results</a>
+        <a href="models.html">Models &amp; Results</a>
         <a href="contacts.html">Contacts</a>
       </nav>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle color mode"
+      >
+        <span class="theme-toggle-pill">
+          <span class="theme-toggle-option theme-toggle-option-dark">Dark</span>
+          <span class="theme-toggle-option theme-toggle-option-light">Light</span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
     </div>
   </header>
 
   <main class="container">
     <section id="data" class="section">
-      <h2>Data</h2>
-      <p>
-        The dataset is a cleaned Freddie Mac MLPD panel. Key fields include:
+      <h2 class="page-title">Data</h2>
+      <p class="section-intro">
+        This page documents the public datasets used in the practicum and how we harmonize overlapping fields across agencies.
+        (Content placeholders — to be filled.)
       </p>
-      <ul>
-        <li>Loan identifiers: <code>lnno</code>, deal name: <code>dealname</code></li>
-        <li>Time: <code>quarter</code>, <code>loan_age_quarters</code> (age in quarters)</li>
-        <li>Balances: <code>amt_upb_endg</code>, <code>unified_upb</code></li>
-        <li>Rates &amp; market: <code>rate_int</code>, <code>10Y_yield_pct</code>, <code>C_R</code> (rate differential)</li>
-        <li>Terminal status &amp; flags: <code>prepay_flag</code>, <code>prepay_category</code>, <code>is_prepaid</code></li>
-      </ul>
-      <p>
-        In the notebook we construct <code>df_model</code> via preprocessing, then perform binning
-        and pool-level aggregation on top of it.
-      </p>
+
+      <div class="data-grid">
+        <div class="data-card">
+          <h3>At a glance</h3>
+          <table class="data-table" aria-label="Dataset overview table">
+            <tbody>
+              <tr><th scope="row">Agencies</th><td>Fannie Mae (DUS), Freddie Mac (K-Deal)</td></tr>
+              <tr><th scope="row">Reporting frequency</th><td>Fannie Mae: <strong>monthly</strong> · Freddie Mac: <strong>quarterly</strong> (to be verified)</td></tr>
+              <tr><th scope="row">Time span</th><td>Fannie Mae: to be filled (YYYY–YYYY) · Freddie Mac: to be filled (YYYY–YYYY)</td></tr>
+              <tr><th scope="row">Granularity</th><td>To be filled (loan-level, pool-level, or both)</td></tr>
+              <tr><th scope="row">Targets</th><td>To be filled (e.g., CPR / prepay flag / hazard incidence)</td></tr>
+              <tr><th scope="row">Macro inputs</th><td>To be filled (e.g., unemployment rate, house price index, rates)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="data-card">
+          <h3>Public sources</h3>
+          <div class="source-cards">
+            <div class="source-card">
+              <p class="source-title">Fannie Mae DUS</p>
+              <p class="source-body">
+                Source: <a href="#" target="_blank" rel="noreferrer">Public dataset link (to be added)</a><br />
+                How we use it: to be filled (what fields, what filters, what aggregation).
+              </p>
+            </div>
+            <div class="source-card">
+              <p class="source-title">Freddie Mac K-Deal</p>
+              <p class="source-body">
+                Source: <a href="#" target="_blank" rel="noreferrer">Public dataset link (to be added)</a><br />
+                How we use it: to be filled (what fields, what filters, what aggregation).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-card" style="margin-top: 1.2rem;">
+        <h3>Additional public datasets (checklist)</h3>
+        <p class="data-muted">
+          Public datasets used in addition to the agency loan performance panels.
+          Replace placeholders and add the official source links. (To be filled.)
+        </p>
+        <table class="checklist-table" aria-label="Inputs checklist table">
+          <colgroup>
+            <col class="checklist-col-dataset" />
+            <col class="checklist-col-agency" />
+            <col class="checklist-col-agency" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Dataset (name · link · brief description)</th>
+              <th scope="col">Fannie Mae</th>
+              <th scope="col">Freddie Mac</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p class="checklist-item-title">Unemployment rate</p>
+                <p class="checklist-item-meta">Link: <a href="#" target="_blank" rel="noreferrer">to be added</a></p>
+                <p class="checklist-item-desc">Brief description: to be filled.</p>
+              </td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+            </tr>
+            <tr>
+              <td>
+                <p class="checklist-item-title">House price index</p>
+                <p class="checklist-item-meta">Link: <a href="#" target="_blank" rel="noreferrer">to be added</a></p>
+                <p class="checklist-item-desc">Brief description: to be filled.</p>
+              </td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+            </tr>
+            <tr>
+              <td>
+                <p class="checklist-item-title">Benchmark interest rates</p>
+                <p class="checklist-item-meta">Link: <a href="#" target="_blank" rel="noreferrer">to be added</a></p>
+                <p class="checklist-item-desc">Brief description: to be filled.</p>
+              </td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+              <td class="check-cell"><span class="check yes" aria-label="Used">✓</span></td>
+            </tr>
+            <tr>
+              <td>
+                <p class="checklist-item-title">Inflation / CPI (optional)</p>
+                <p class="checklist-item-meta">Link: <a href="#" target="_blank" rel="noreferrer">to be added</a></p>
+                <p class="checklist-item-desc">Brief description: to be filled.</p>
+              </td>
+              <td class="check-cell"><span class="check no" aria-label="Not used">✕</span></td>
+              <td class="check-cell"><span class="check no" aria-label="Not used">✕</span></td>
+            </tr>
+            <tr>
+              <td>
+                <p class="checklist-item-title">Other public dataset (placeholder)</p>
+                <p class="checklist-item-meta">Link: <a href="#" target="_blank" rel="noreferrer">to be added</a></p>
+                <p class="checklist-item-desc">Brief description: to be filled.</p>
+              </td>
+              <td class="check-cell"><span class="check no" aria-label="Not used">✕</span></td>
+              <td class="check-cell"><span class="check no" aria-label="Not used">✕</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="data-card" style="margin-top: 1.2rem;">
+        <h3>Processing &amp; harmonization</h3>
+        <ol class="data-steps">
+          <li><strong>Ingest</strong>: Download raw public files and load into a unified schema. (To be filled.)</li>
+          <li><strong>Clean</strong>: Deduplicate, align units, and standardize time frequency. (To be filled.)</li>
+          <li><strong>Engineer</strong>: Construct shared factors (loan age, incentive proxies, burnout history). (To be filled.)</li>
+          <li><strong>Aggregate</strong>: Produce pool-level panels for modeling and evaluation. (To be filled.)</li>
+        </ol>
+      </div>
     </section>
   </main>
 

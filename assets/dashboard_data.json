@@ -1,0 +1,79 @@
+{
+  "schema": {
+    "description": "Example dashboard series data. Replace with your real output.",
+    "seriesFields": [
+      "dataset (fannie|freddie)",
+      "model (statistic|ml)",
+      "level (time|age)",
+      "x (array of labels or numbers)",
+      "y (array of numbers, e.g., CPR)",
+      "yLabel (string)"
+    ]
+  },
+  "series": [
+    {
+      "dataset": "fannie",
+      "model": "statistic",
+      "level": "time",
+      "x": ["2022Q1", "2022Q2", "2022Q3", "2022Q4", "2023Q1", "2023Q2"],
+      "y": [0.062, 0.058, 0.051, 0.047, 0.055, 0.061],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "fannie",
+      "model": "ml",
+      "level": "time",
+      "x": ["2022Q1", "2022Q2", "2022Q3", "2022Q4", "2023Q1", "2023Q2"],
+      "y": [0.066, 0.056, 0.049, 0.045, 0.053, 0.059],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "freddie",
+      "model": "statistic",
+      "level": "time",
+      "x": ["2022Q1", "2022Q2", "2022Q3", "2022Q4", "2023Q1", "2023Q2"],
+      "y": [0.071, 0.067, 0.060, 0.054, 0.060, 0.069],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "freddie",
+      "model": "ml",
+      "level": "time",
+      "x": ["2022Q1", "2022Q2", "2022Q3", "2022Q4", "2023Q1", "2023Q2"],
+      "y": [0.073, 0.065, 0.058, 0.052, 0.059, 0.067],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "fannie",
+      "model": "statistic",
+      "level": "age",
+      "x": [0, 4, 8, 12, 16, 20, 24],
+      "y": [0.010, 0.022, 0.036, 0.031, 0.025, 0.018, 0.013],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "fannie",
+      "model": "ml",
+      "level": "age",
+      "x": [0, 4, 8, 12, 16, 20, 24],
+      "y": [0.011, 0.024, 0.038, 0.030, 0.024, 0.017, 0.012],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "freddie",
+      "model": "statistic",
+      "level": "age",
+      "x": [0, 4, 8, 12, 16, 20, 24],
+      "y": [0.012, 0.026, 0.041, 0.034, 0.028, 0.020, 0.015],
+      "yLabel": "CPR"
+    },
+    {
+      "dataset": "freddie",
+      "model": "ml",
+      "level": "age",
+      "x": [0, 4, 8, 12, 16, 20, 24],
+      "y": [0.013, 0.027, 0.043, 0.033, 0.027, 0.019, 0.014],
+      "yLabel": "CPR"
+    }
+  ]
+}

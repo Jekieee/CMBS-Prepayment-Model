@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Models · Freddie Mac Prepayment Project</title>
+  <title>Models &amp; Results · CMBS Prepayment Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="theme.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,34 +17,206 @@
       <nav class="nav">
         <a href="index.html">Overview</a>
         <a href="data.html">Data</a>
-        <a href="models.html">Models</a>
-        <a href="results.html">Results</a>
+        <a href="models.html">Models &amp; Results</a>
         <a href="contacts.html">Contacts</a>
       </nav>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle color mode"
+      >
+        <span class="theme-toggle-pill">
+          <span class="theme-toggle-option theme-toggle-option-dark">Dark</span>
+          <span class="theme-toggle-option theme-toggle-option-light">Light</span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
     </div>
   </header>
 
   <main class="container">
-    <section id="model" class="section">
-      <h2>Models</h2>
-      <p>
-        The core pool-level model works at the pool level (quarter × Loan_Age_bin2 × C_R_bin2),
-        fitting the prepayment incidence for each bin-quarter:
+    <section id="overview" class="section">
+      <h2 class="page-title">Models &amp; Results</h2>
+      <p class="section-intro">
+        This page summarizes the modeling setup, evaluation protocol, and the key result plots.
       </p>
-      <ul>
-        <li><strong>Target</strong>: <code>y_incidence = n_prepay / n_loans</code> (quarterly incidence)</li>
-        <li><strong>Likelihood</strong>: Binomial (n_prepay, n_loans - n_prepay) via a GLM</li>
-        <li><strong>Main features</strong>:
-          <ul>
-            <li>Refi S-curve: based on <code>refi_incentive = pool_contract_rate - pool_market_rate</code></li>
-            <li>Seasonal: quarter-of-year dummies <code>qoy</code></li>
-            <li>Seasoning: <code>median_loan_age</code>, <code>seasoning_ramp</code>, <code>log_age</code></li>
-            <li>Burnout: <code>burnout_norm</code>, <code>log_survival</code></li>
-            <li>Rate momentum: <code>market_rate_qoq</code></li>
-          </ul>
-        </li>
-        <li><strong>Regularization</strong>: Ridge (L2) to balance fit and stability.</li>
-      </ul>
+    </section>
+
+    <section id="model" class="section">
+      <div class="mr-header">
+        <h2>Modeling setup</h2>
+        <div class="mr-switch" role="group" aria-label="Dataset view switch">
+          <button class="hero-toggle" type="button" data-ds-view="both">Show both datasets</button>
+        </div>
+      </div>
+
+      <div class="ds-carousel" data-ds-carousel aria-label="Dataset carousel (modeling setup)">
+        <div class="ds-track" data-ds-track aria-label="Dataset cards">
+          <article class="ds-card" data-ds="fannie" aria-label="Fannie Mae modeling setup">
+          <header class="ds-card-header">
+            <h3 class="ds-card-title">Fannie Mae</h3>
+            <p class="ds-card-subtitle">Monthly panel (to be verified) · to be filled (time span)</p>
+          </header>
+          <div class="ds-card-body">
+            <div class="ds-mini-grid">
+              <div class="ds-mini">
+                <p class="ds-mini-title">Statistic (baseline)</p>
+                <p class="ds-mini-body">To be filled (hazard / logistic specification, key drivers).</p>
+              </div>
+              <div class="ds-mini">
+                <p class="ds-mini-title">ML (benchmark)</p>
+                <p class="ds-mini-body">To be filled (XGBoost feature set, tuning, validation).</p>
+              </div>
+            </div>
+          </div>
+          </article>
+
+          <article class="ds-card" data-ds="freddie" aria-label="Freddie Mac modeling setup">
+          <header class="ds-card-header">
+            <h3 class="ds-card-title">Freddie Mac</h3>
+            <p class="ds-card-subtitle">Quarterly panel (to be verified) · to be filled (time span)</p>
+          </header>
+          <div class="ds-card-body">
+            <div class="ds-mini-grid">
+              <div class="ds-mini">
+                <p class="ds-mini-title">Statistic (baseline)</p>
+                <p class="ds-mini-body">To be filled (hazard / logistic specification, key drivers).</p>
+              </div>
+              <div class="ds-mini">
+                <p class="ds-mini-title">ML (benchmark)</p>
+                <p class="ds-mini-body">To be filled (XGBoost feature set, tuning, validation).</p>
+              </div>
+            </div>
+          </div>
+          </article>
+        </div>
+
+        <button class="ds-nav ds-nav-prev" type="button" aria-label="Previous dataset" data-ds-prev>‹</button>
+        <button class="ds-nav ds-nav-next" type="button" aria-label="Next dataset" data-ds-next>›</button>
+        <div class="ds-dots" role="tablist" aria-label="Dataset pages">
+          <button class="ds-dot is-active" type="button" role="tab" aria-selected="true" data-ds-dot="0" aria-label="Fannie Mae"></button>
+          <button class="ds-dot" type="button" role="tab" aria-selected="false" data-ds-dot="1" aria-label="Freddie Mac"></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <div class="mr-header mr-header-stack">
+        <h2>Results &amp; Visualizations</h2>
+        <p class="mr-muted">
+          Details of our model performance.
+        </p>
+      </div>
+
+      <div class="ds-carousel" data-ds-carousel aria-label="Dataset carousel (results)">
+        <div class="ds-track ds-track-results" data-ds-track aria-label="Dataset result cards">
+          <article class="ds-card" data-ds="fannie" id="results-fannie" aria-label="Fannie Mae results">
+          <header class="ds-card-header">
+            <h3 class="ds-card-title">Fannie Mae</h3>
+            <p class="ds-card-subtitle">To be filled (key results + diagnostics).</p>
+          </header>
+          <div class="ds-card-body">
+            <div class="results-stack">
+              <div class="results-card" aria-label="Fannie Mae metrics">
+                <p class="results-card-title">Metrics</p>
+                <table class="metrics-table" aria-label="Metrics table (Fannie Mae)">
+                  <thead>
+                    <tr>
+                      <th scope="col">Model</th>
+                      <th scope="col">Train</th>
+                      <th scope="col">Test</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Statistic</strong> · RMSE / R²</td>
+                      <td>to be filled</td>
+                      <td>to be filled</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ML</strong> · RMSE / R²</td>
+                      <td>to be filled</td>
+                      <td>to be filled</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="results-card" aria-label="Fannie Mae plots">
+                <p class="results-card-title">Plots</p>
+                <div class="charts-grid">
+              <figure class="chart-card">
+                <img src="assets/cpr_heatmap.png" alt="Fannie Mae CPR Heatmap" />
+                <figcaption>Fannie Mae: CPR heatmap (placeholder)</figcaption>
+              </figure>
+              <figure class="chart-card">
+                <img src="assets/time_series.png" alt="Fannie Mae CPR over Time" />
+                <figcaption>Fannie Mae: actual vs predicted CPR over time (placeholder)</figcaption>
+              </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+          </article>
+
+          <article class="ds-card" data-ds="freddie" id="results-freddie" aria-label="Freddie Mac results">
+          <header class="ds-card-header">
+            <h3 class="ds-card-title">Freddie Mac</h3>
+            <p class="ds-card-subtitle">To be filled (key results + diagnostics).</p>
+          </header>
+          <div class="ds-card-body">
+            <div class="results-stack">
+              <div class="results-card" aria-label="Freddie Mac metrics">
+                <p class="results-card-title">Metrics</p>
+                <table class="metrics-table" aria-label="Metrics table (Freddie Mac)">
+                  <thead>
+                    <tr>
+                      <th scope="col">Model</th>
+                      <th scope="col">Train</th>
+                      <th scope="col">Test</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Statistic</strong> · RMSE / R²</td>
+                      <td>to be filled</td>
+                      <td>to be filled</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ML</strong> · RMSE / R²</td>
+                      <td>to be filled</td>
+                      <td>to be filled</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="results-card" aria-label="Freddie Mac plots">
+                <p class="results-card-title">Plots</p>
+                <div class="charts-grid">
+              <figure class="chart-card">
+                <img src="assets/upb_heatmap.png" alt="Freddie Mac Exposure Heatmap" />
+                <figcaption>Freddie Mac: exposure / UPB heatmap (placeholder)</figcaption>
+              </figure>
+              <figure class="chart-card">
+                <img src="assets/scatter_pred_actual.png" alt="Freddie Mac Pred vs Actual Scatter" />
+                <figcaption>Freddie Mac: predicted vs actual scatter (placeholder)</figcaption>
+              </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+          </article>
+        </div>
+
+        <button class="ds-nav ds-nav-prev" type="button" aria-label="Previous dataset" data-ds-prev>‹</button>
+        <button class="ds-nav ds-nav-next" type="button" aria-label="Next dataset" data-ds-next>›</button>
+        <div class="ds-dots" role="tablist" aria-label="Dataset pages">
+          <button class="ds-dot is-active" type="button" role="tab" aria-selected="true" data-ds-dot="0" aria-label="Fannie Mae"></button>
+          <button class="ds-dot" type="button" role="tab" aria-selected="false" data-ds-dot="1" aria-label="Freddie Mac"></button>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -52,6 +225,106 @@
       <p>© Freddie Mac Prepayment Project Demo · Static site for showcasing notebook outputs and documentation.</p>
     </div>
   </footer>
+  <script>
+    (function () {
+      const KEY = "ds_show_both";
+      const toggleBtn = document.querySelector("[data-ds-view=\"both\"]");
+
+      function setShowBoth(on) {
+        const value = on ? "both" : "single";
+        document.documentElement.setAttribute("data-ds-view", value);
+        try { localStorage.setItem(KEY, value); } catch (_) {}
+        if (toggleBtn) toggleBtn.classList.toggle("is-active", on);
+        if (toggleBtn) toggleBtn.textContent = on ? "Showing both datasets" : "Show both datasets";
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", function () {
+          const cur = document.documentElement.getAttribute("data-ds-view") || "single";
+          setShowBoth(cur !== "both");
+        });
+      }
+
+      let initial = "single";
+      try {
+        const saved = localStorage.getItem(KEY);
+        if (saved === "both" || saved === "single") initial = saved;
+      } catch (_) {}
+      setShowBoth(initial === "both");
+
+      // Carousel behavior in single mode (precise paging)
+      const carousels = Array.from(document.querySelectorAll("[data-ds-carousel]"));
+      carousels.forEach((carousel) => {
+        const track = carousel.querySelector("[data-ds-track]");
+        const cards = track ? Array.from(track.querySelectorAll(".ds-card")) : [];
+        const prev = carousel.querySelector("[data-ds-prev]");
+        const next = carousel.querySelector("[data-ds-next]");
+        const dots = Array.from(carousel.querySelectorAll("[data-ds-dot]"));
+        if (!track || cards.length < 2) return;
+
+        function clamp(i) {
+          return Math.max(0, Math.min(cards.length - 1, i));
+        }
+
+        function setIndex(i) {
+          const idx = clamp(i);
+          track.scrollTo({ left: idx * track.clientWidth, behavior: "smooth" });
+          carousel.dataset.dsIndex = String(idx);
+          dots.forEach((d, j) => {
+            d.classList.toggle("is-active", j === idx);
+            d.setAttribute("aria-selected", j === idx ? "true" : "false");
+          });
+        }
+
+        function getIndex() {
+          const raw = Number(carousel.dataset.dsIndex || "0");
+          return Number.isFinite(raw) ? clamp(raw) : 0;
+        }
+
+        prev?.addEventListener("click", () => setIndex(getIndex() - 1));
+        next?.addEventListener("click", () => setIndex(getIndex() + 1));
+        dots.forEach((d) => d.addEventListener("click", () => setIndex(Number(d.getAttribute("data-ds-dot") || "0"))));
+
+        // Click left/right half of the card area
+        track.addEventListener("click", (e) => {
+          if (document.documentElement.getAttribute("data-ds-view") === "both") return;
+          const rect = track.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          if (x < rect.width * 0.45) setIndex(getIndex() - 1);
+          else if (x > rect.width * 0.55) setIndex(getIndex() + 1);
+        });
+
+        // Keep dots in sync on manual scroll
+        let raf = 0;
+        track.addEventListener("scroll", () => {
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            raf = 0;
+            const cRect = track.getBoundingClientRect();
+            let best = 0;
+            let bestDist = Infinity;
+            cards.forEach((card, i) => {
+              const r = card.getBoundingClientRect();
+              const cx = r.left + r.width / 2;
+              const dist = Math.abs(cx - (cRect.left + cRect.width / 2));
+              if (dist < bestDist) {
+                bestDist = dist;
+                best = i;
+              }
+            });
+            carousel.dataset.dsIndex = String(best);
+            dots.forEach((d, j) => {
+              d.classList.toggle("is-active", j === best);
+              d.setAttribute("aria-selected", j === best ? "true" : "false");
+            });
+          });
+        });
+
+        // Initialize to page 0 and snap precisely.
+        setIndex(0);
+      });
+    })();
+  </script>
 </body>
 </html>
 

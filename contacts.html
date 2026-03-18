@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="theme.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,10 +17,21 @@
       <nav class="nav">
         <a href="index.html">Overview</a>
         <a href="data.html">Data</a>
-        <a href="models.html">Models</a>
-        <a href="results.html">Results</a>
+        <a href="models.html">Models &amp; Results</a>
         <a href="contacts.html">Contacts</a>
       </nav>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle color mode"
+      >
+        <span class="theme-toggle-pill">
+          <span class="theme-toggle-option theme-toggle-option-dark">Dark</span>
+          <span class="theme-toggle-option theme-toggle-option-light">Light</span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
     </div>
   </header>
 
@@ -27,14 +39,14 @@
     <section id="contact" class="section">
       <h2>Contacts</h2>
       <p>
-        For questions about this practicum or the Freddie Mac K‑Deal prepayment models, please reach out to the project team.
+        For questions about this practicum project, please reach out to the project team.
       </p>
       <ul>
         <li><strong>Primary contact</strong>: &lt;Name / email / affiliation&gt;</li>
         <li><strong>Faculty / advisor</strong>: &lt;Name / email&gt;</li>
         <li><strong>GitHub repository</strong>: <code>Jekieee/CMBS-Prepayment-Model</code></li>
       </ul>
-      <p style="margin-top: 0.6rem; font-size: 0.95rem; color: #cbd5e1;">
+      <p class="note">
         Replace the placeholders above with your actual contact information before final submission.
       </p>
     </section>

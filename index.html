@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <script src="theme.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,10 +17,21 @@
       <nav class="nav">
         <a href="index.html">Overview</a>
         <a href="data.html">Data</a>
-        <a href="models.html">Models</a>
-        <a href="results.html">Results</a>
+        <a href="models.html">Models &amp; Results</a>
         <a href="contacts.html">Contacts</a>
       </nav>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle color mode"
+      >
+        <span class="theme-toggle-pill">
+          <span class="theme-toggle-option theme-toggle-option-dark">Dark</span>
+          <span class="theme-toggle-option theme-toggle-option-light">Light</span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
     </div>
   </header>
 
@@ -27,144 +39,105 @@
     <section class="cover" aria-label="Cover">
       <div class="cover-bg"></div>
       <div class="cover-content">
-        <h2 class="cover-title">Freddie Mac CMBS Prepayment Modeling</h2>
-        <p class="cover-subtitle">Pool vs Loan · Static vs ML · Multi-dimensional comparison</p>
-      </div>
-    </section>
-
-    <section class="objective-card" aria-label="Research objective and hypothesis">
-      <h2>Research Objective / Core Hypothesis</h2>
-      <p>
-        This practicum evaluates whether modern machine learning models can
-        <strong>robustly capture and improve upon</strong> traditional CMBS prepayment behavior
-        models for <strong>Freddie Mac K-Deal pools</strong>.
-      </p>
-      <ul>
-        <li>Demonstrate the feasibility of ML-based prepayment modeling on Freddie Mac K-Deal data.</li>
-        <li>Benchmark the predictive performance of ML models against interpretable static specifications.</li>
-        <li>Highlight where ML provides the most incremental value across incentive, seasoning and burnout dimensions.</li>
-      </ul>
-    </section>
-
-    <section class="hero" aria-label="Interactive overview dashboard">
-      <div class="hero-text">
-        <p class="hero-kicker">Interactive overview · Freddie Mac CMBS</p>
-        <h2>Prepayment modeling dashboard</h2>
-        <p class="hero-lead">
-          One-page view of our practicum: compare <strong>granularity</strong> (pool vs loan)
-          and <strong>method</strong> (static vs ML) with CPR, error and lift at a glance.
-        </p>
-        <p class="hero-goal">
-          <strong>Research goal</strong>: quantify and explain CMBS prepayment behavior under
-          different model classes, then benchmark robustness and predictive power for risk management use.
-        </p>
-        <div class="hero-summary-grid">
-          <div class="hero-summary-block">
-            <h3>Data source</h3>
-            <p>Freddie Mac Multi-Family Loan Performance (K-Deal & Fixed Rate) panel<br />+ 10Y U.S. Treasury yields.</p>
-          </div>
-          <div class="hero-summary-block">
-            <h3>4-model framework</h3>
-            <p>Pool · Static, Pool · ML, Loan · Static, Loan · ML.</p>
-          </div>
-        </div>
-        <h3 class="mini-heading">3–5 key takeaways (Freddie Mac arm)</h3>
-        <ul class="hero-takeaways">
-          <li>To be updated...</li>
-          <li>To be updated...</li>
-          <li>To be updated...</li>
-          <li>To be updated...</li>
-        </ul>
-      </div>
-      <div class="hero-dashboard" aria-label="Interactive comparison controls">
-        <div class="hero-controls">
-          <div class="hero-control-group">
-            <span class="hero-control-label">Granularity</span>
-            <div class="hero-control-buttons">
-              <button class="hero-toggle is-active" type="button" data-dim="granularity" data-value="pool">Pool</button>
-              <button class="hero-toggle" type="button" data-dim="granularity" data-value="loan">Loan</button>
-            </div>
-          </div>
-          <div class="hero-control-group">
-            <span class="hero-control-label">Method</span>
-            <div class="hero-control-buttons">
-              <button class="hero-toggle is-active" type="button" data-dim="method" data-value="static">Static</button>
-              <button class="hero-toggle" type="button" data-dim="method" data-value="ml">ML</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-chart-card" aria-live="polite">
-          <header class="hero-chart-header">
-            <div>
-              <p class="hero-chart-title" id="hero-chart-title">Pool · Static · Freddie</p>
-              <p class="hero-chart-subtitle">CPR curve · error profile · lift vs baseline</p>
-            </div>
-            <span class="hero-chart-tag">CPR / Error / Lift</span>
-          </header>
-          <div class="hero-chart-body">
-            <p id="hero-chart-copy" class="hero-chart-copy">
-              Baseline pool-level GLM: CPR follows a smooth S-curve in incentive and a standard seasoning ramp;
-              errors are small in the core bins but widen in sparse tails.
-            </p>
-            <p class="hero-chart-placeholder">
-              Embed a key CPR / error / lift chart here (static PNG or interactive Plotly) when ready.
-            </p>
-          </div>
-        </div>
-
-        <div class="hero-metrics">
-          <div class="metric-card">
-            <p class="metric-label">CPR level</p>
-            <p class="metric-value" id="metric-cpr">~5–15% (by incentive &amp; age)</p>
-            <p class="metric-note" id="metric-cpr-note">Smooth by design via binning and GLM structure.</p>
-          </div>
-          <div class="metric-card">
-            <p class="metric-label">Model error</p>
-            <p class="metric-value" id="metric-error">Low in core bins</p>
-            <p class="metric-note" id="metric-error-note">Larger residuals where exposure is thin (extreme incentives / ages).</p>
-          </div>
-          <div class="metric-card">
-            <p class="metric-label">Lift vs baseline</p>
-            <p class="metric-value" id="metric-lift">Interpretability-first</p>
-            <p class="metric-note" id="metric-lift-note">Provides a stable benchmark for ML models to beat.</p>
-          </div>
-          <a class="hero-dive-link" href="#results">Dive deeper into charts &amp; diagnostics →</a>
-        </div>
+        <h2 class="cover-title">CMBS Prepayment Modeling</h2>
+        <p class="cover-subtitle">Fannie Mae DUS · Freddie Mac K-Deal · Statistic vs ML</p>
       </div>
     </section>
 
     <section id="overview" class="section">
       <h2>Project Overview</h2>
       <p>
-        This project builds a pool-level prepayment model on Freddie Mac CMBS data,
-        using the four-factor framework of Kang &amp; Zenios (1992) (refinancing incentive,
-        seasonal, seasoning, burnout) as a reference, but focusing on
-        <strong>interpretability</strong> and <strong>predictive performance</strong>
-        rather than strict replication.
+        This project evaluates and compares traditional statistical models and machine learning approaches for predicting pool-level prepayment behavior in Commercial Mortgage-Backed Securities (CMBS), using two public agency datasets: Fannie Mae DUS and Freddie Mac K-Deal loans.
       </p>
-      <ul>
-        <li><strong>Scope of this site</strong>: visualizing and explaining models on the Freddie Mac CMBS (K-Deal) dataset only</li>
-        <li><strong>Objective</strong>: Characterize prepayment behavior across loan age × rate incentive bins</li>
-        <li><strong>Granularity</strong>: Pool level (quarter × bin)</li>
-        <li><strong>Key outputs</strong>: CPR / y_incidence, predicted probability p_hat, and error diagnostics</li>
-      </ul>
       <p>
-        At the practicum level, we compare statistical and machine learning prepayment models
-        across both Fannie Mae DUS CMBS and Freddie Mac CMBS. This website focuses exclusively
-        on the Freddie Mac implementation and the visualization of model behavior on K-Deal data.
+        The objective is to assess differences in predictive performance, stability, and interpretability, with a focus on capturing nonlinear prepayment incentives and borrower behavior.
       </p>
-      <h3 class="mini-heading">Project context (condensed from problem statement)</h3>
-      <ul>
-        <li>CMBS prepayments are shaped by lock-out periods, yield maintenance, and step-down penalties.</li>
-        <li>Small, heterogeneous pools and large loan sizes create challenges for traditional econometric models.</li>
-        <li>Machine learning offers flexibility, but benefits must be validated under limited, noisy data.</li>
-        <li>Final deliverables include methodology documentation, Python code, and a formal presentation.</li>
-      </ul>
+
+      <div class="achievement-header">
+        <h3 class="achievement-title">Achievement Highlights</h3>
+        <div class="hero-control-group achievement-switch">
+          <span class="hero-control-label">Dataset</span>
+          <div class="hero-control-buttons">
+            <button class="hero-toggle is-active" type="button" data-dim="dataset" data-value="fannie">Fannie Mae</button>
+            <button class="hero-toggle" type="button" data-dim="dataset" data-value="freddie">Freddie Mac</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="achievement-grid" aria-label="Achievement highlights cards">
+        <div class="achievement-card">
+          <p class="achievement-card-title">Performance (Accuracy / Lift)</p>
+          <p class="achievement-card-body" id="ach-performance">Point A (to be filled)</p>
+        </div>
+        <div class="achievement-card">
+          <p class="achievement-card-title">Robustness (Stability)</p>
+          <p class="achievement-card-body" id="ach-robustness">Point B (to be filled)</p>
+        </div>
+        <div class="achievement-card">
+          <p class="achievement-card-title">Interpretability (Drivers)</p>
+          <p class="achievement-card-body" id="ach-interpretability">Point C (to be filled)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" aria-label="Prepayment modeling dashboard">
+      <div class="hero-text">
+        <h2>Prepayment modeling dashboard</h2>
+        <p class="hero-lead">
+          Specifically, we implement a logistic regression-based hazard model as a baseline and benchmark it against gradient boosting models (XGBoost).
+        </p>
+      </div>
+
+      <div class="dashboard-layout" aria-label="Dataset, model, and level selection">
+        <aside class="dashboard-side dashboard-side-left">
+          <div class="hero-control-group">
+            <span class="hero-control-label">Dataset</span>
+            <div class="hero-control-buttons">
+              <button class="hero-toggle is-active" type="button" data-dim="dataset" data-value="fannie">Fannie Mae</button>
+              <button class="hero-toggle" type="button" data-dim="dataset" data-value="freddie">Freddie Mac</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="hero-chart-card dashboard-center" aria-live="polite">
+          <header class="hero-chart-header">
+            <div>
+              <p class="hero-chart-title" id="hero-chart-title">Fannie Mae · Statistic · Over time</p>
+              <p class="hero-chart-subtitle">Final model output (loaded from data)</p>
+            </div>
+            <span class="hero-chart-tag">Output Plot</span>
+          </header>
+          <div class="hero-chart-body">
+            <div class="dashboard-plot-wrap">
+              <canvas id="dashboard-plot" width="960" height="420" aria-label="Final model output plot"></canvas>
+              <p class="dashboard-plot-status" id="dashboard-plot-status">Loading plot data…</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="dashboard-side dashboard-side-right">
+          <div class="dashboard-side-stack">
+            <div class="hero-control-group">
+              <span class="hero-control-label">Model</span>
+              <div class="hero-control-buttons">
+                <button class="hero-toggle is-active" type="button" data-dim="model" data-value="statistic">Statistic</button>
+                <button class="hero-toggle" type="button" data-dim="model" data-value="ml">ML</button>
+              </div>
+            </div>
+            <div class="hero-control-group">
+              <span class="hero-control-label">Level</span>
+              <div class="hero-control-buttons">
+                <button class="hero-toggle is-active" type="button" data-dim="level" data-value="time">Over time</button>
+                <button class="hero-toggle" type="button" data-dim="level" data-value="age">Over loan age</button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
     </section>
 
     <section id="acknowledgements" class="section">
-      <h2>Acknowledgements &amp; thanks</h2>
+      <h2>Acknowledgements &amp; Thanks</h2>
       <p>
         This practicum is the result of support and feedback from industry sponsors, faculty, and teammates.
       </p>
@@ -184,80 +157,196 @@
   <script>
     (function () {
       const state = {
-        granularity: "pool",
-        method: "static"
-      };
-
-      const copyByCombo = {
-        "pool-static": {
-          title: "Pool · Static · Freddie",
-          text:
-            "Baseline pool-level GLM on Freddie Mac K-Deals: CPR follows a smooth S-curve in rate incentive with a pronounced seasoning hump; residuals remain small in high-exposure bins.",
-          cpr: "~5–15% (by incentive & age)",
-          cprNote: "Smooth, interpretable CPR surface aligned with Kang & Zenios style factors.",
-          error: "Low in core bins",
-          errorNote: "Misfit mainly in sparse tails and around structural breaks in the rate environment.",
-          lift: "Interpretability-first",
-          liftNote: "Serves as the benchmark for ML lift and robustness checks."
-        },
-        "pool-ml": {
-          title: "Pool · ML · Freddie",
-          text:
-            "Pool-level ML adds flexible interactions (e.g. incentive × age × burnout), tightening fit especially in the tails while keeping the same pool aggregation.",
-          cpr: "Sharper fit to CPR surface",
-          cprNote: "Captures subtle kinks in incentive and age not modeled in the GLM.",
-          error: "Lower RMSE vs static",
-          errorNote: "Most error reduction occurs in extreme incentive and late-age regions.",
-          lift: "Moderate lift",
-          liftNote: "Good compromise between stability and extra performance at pool level."
-        },
-        "loan-static": {
-          title: "Loan · Static · Freddie",
-          text:
-            "Loan-level static models emphasize traditional factors at individual-loan granularity, but can be noisy under limited observations per bin.",
-          cpr: "Heterogeneous across loans",
-          cprNote: "More dispersion as idiosyncratic loan features enter at the individual level.",
-          error: "Higher variance",
-          errorNote: "Noise and thin data in some strata limit pure static performance.",
-          lift: "Baseline at loan level",
-          liftNote: "Defines a simple, explainable reference for loan-level ML models."
-        },
-        "loan-ml": {
-          title: "Loan · ML · Freddie",
-          text:
-            "Loan-level ML leverages richer feature sets (burnout history, collateral, rate dynamics) to recover cross-sectional lift beyond pool and static benchmarks.",
-          cpr: "Most granular CPR view",
-          cprNote: "Highlights which loans drive pool-level prepayment tails.",
-          error: "Lowest out-of-sample error",
-          errorNote: "Best predictive power, subject to careful regularization and validation.",
-          lift: "Highest lift",
-          liftNote: "Maximizes predictive accuracy while requiring extra care on stability and explainability."
-        }
+        dataset: "fannie",
+        model: "statistic",
+        level: "time"
       };
 
       const titleEl = document.getElementById("hero-chart-title");
-      const copyEl = document.getElementById("hero-chart-copy");
-      const cprEl = document.getElementById("metric-cpr");
-      const cprNoteEl = document.getElementById("metric-cpr-note");
-      const errEl = document.getElementById("metric-error");
-      const errNoteEl = document.getElementById("metric-error-note");
-      const liftEl = document.getElementById("metric-lift");
-      const liftNoteEl = document.getElementById("metric-lift-note");
+      const statusEl = document.getElementById("dashboard-plot-status");
+      const canvas = document.getElementById("dashboard-plot");
+      const ctx = canvas ? canvas.getContext("2d") : null;
+      const DATA_URL = "assets/dashboard_data.json";
 
-      function render() {
-        const key = state.granularity + "-" + state.method;
-        const cfg = copyByCombo[key];
-        if (!cfg) {
+      const achPerformanceEl = document.getElementById("ach-performance");
+      const achRobustnessEl = document.getElementById("ach-robustness");
+      const achInterpretabilityEl = document.getElementById("ach-interpretability");
+
+      let db = null;
+
+      function formatLevel(level) {
+        return level === "age" ? "Over loan age" : "Over time";
+      }
+
+      function getDatasetLabel(dataset) {
+        return dataset === "freddie" ? "Freddie Mac" : "Fannie Mae";
+      }
+
+      function getModelLabel(model) {
+        return model === "ml" ? "ML" : "Statistic";
+      }
+
+      function setStatus(text) {
+        if (!statusEl) return;
+        statusEl.textContent = text;
+      }
+
+      function findSeries() {
+        if (!db || !db.series) return null;
+        return db.series.find(function (s) {
+          return s.dataset === state.dataset && s.model === state.model && s.level === state.level;
+        });
+      }
+
+      function clearCanvas() {
+        if (!ctx || !canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const cssWidth = canvas.clientWidth || canvas.width;
+        const cssHeight = canvas.clientHeight || canvas.height;
+        canvas.width = Math.floor(cssWidth * dpr);
+        canvas.height = Math.floor(cssHeight * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, cssWidth, cssHeight);
+      }
+
+      function drawLineChart(series) {
+        if (!ctx || !canvas) return;
+        clearCanvas();
+
+        const w = canvas.clientWidth || 960;
+        const h = canvas.clientHeight || 420;
+        const pad = { l: 52, r: 18, t: 18, b: 42 };
+
+        const xVals = series.x || [];
+        const yVals = series.y || [];
+        if (xVals.length === 0 || yVals.length === 0 || xVals.length !== yVals.length) {
+          setStatus("No data available for this selection.");
           return;
         }
-        if (titleEl) titleEl.textContent = cfg.title;
-        if (copyEl) copyEl.textContent = cfg.text;
-        if (cprEl) cprEl.textContent = cfg.cpr;
-        if (cprNoteEl) cprNoteEl.textContent = cfg.cprNote;
-        if (errEl) errEl.textContent = cfg.error;
-        if (errNoteEl) errNoteEl.textContent = cfg.errorNote;
-        if (liftEl) liftEl.textContent = cfg.lift;
-        if (liftNoteEl) liftNoteEl.textContent = cfg.liftNote;
+
+        const isNumericX = typeof xVals[0] === "number";
+        const xNums = isNumericX ? xVals : xVals.map(function (_, i) { return i; });
+
+        const yMin = Math.min.apply(null, yVals);
+        const yMax = Math.max.apply(null, yVals);
+        const yPad = (yMax - yMin) * 0.08 || 1;
+        const y0 = yMin - yPad;
+        const y1 = yMax + yPad;
+
+        const xMin = Math.min.apply(null, xNums);
+        const xMax = Math.max.apply(null, xNums);
+        const x0 = xMin;
+        const x1 = xMax === xMin ? xMin + 1 : xMax;
+
+        function sx(x) {
+          return pad.l + ((x - x0) / (x1 - x0)) * (w - pad.l - pad.r);
+        }
+        function sy(y) {
+          return pad.t + (1 - (y - y0) / (y1 - y0)) * (h - pad.t - pad.b);
+        }
+
+        // axes
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(148,163,184,0.55)";
+        ctx.beginPath();
+        ctx.moveTo(pad.l, pad.t);
+        ctx.lineTo(pad.l, h - pad.b);
+        ctx.lineTo(w - pad.r, h - pad.b);
+        ctx.stroke();
+
+        // y ticks
+        ctx.font = "12px Inter, system-ui, -apple-system, Segoe UI, sans-serif";
+        const ticks = 4;
+        for (let i = 0; i <= ticks; i++) {
+          const t = i / ticks;
+          const y = y0 + (1 - t) * (y1 - y0);
+          const py = sy(y);
+          ctx.strokeStyle = "rgba(148,163,184,0.18)";
+          ctx.beginPath();
+          ctx.moveTo(pad.l, py);
+          ctx.lineTo(w - pad.r, py);
+          ctx.stroke();
+          ctx.fillStyle = "rgba(148,163,184,0.9)";
+          ctx.fillText(y.toFixed(2), 8, py + 4);
+        }
+
+        // x labels (sparse)
+        const maxLabels = 5;
+        const step = Math.max(1, Math.floor(xVals.length / maxLabels));
+        ctx.fillStyle = "rgba(148,163,184,0.9)";
+        for (let i = 0; i < xVals.length; i += step) {
+          const label = String(xVals[i]);
+          const px = sx(xNums[i]);
+          ctx.fillText(label, px - 12, h - 16);
+        }
+
+        // line
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = "#38bdf8";
+        ctx.beginPath();
+        for (let i = 0; i < xNums.length; i++) {
+          const px = sx(xNums[i]);
+          const py = sy(yVals[i]);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.stroke();
+
+        // points
+        ctx.fillStyle = "#22c55e";
+        for (let i = 0; i < xNums.length; i++) {
+          const px = sx(xNums[i]);
+          const py = sy(yVals[i]);
+          ctx.beginPath();
+          ctx.arc(px, py, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // label
+        ctx.fillStyle = "rgba(148,163,184,0.95)";
+        ctx.fillText(series.yLabel || "CPR", pad.l, pad.t + 10);
+
+        setStatus("");
+      }
+
+      function renderAchievements() {
+        const cfg =
+          state.dataset === "freddie"
+            ? {
+                performance: "Point A (Freddie Mac — to be filled)",
+                robustness: "Point B (Freddie Mac — to be filled)",
+                interpretability: "Point C (Freddie Mac — to be filled)"
+              }
+            : {
+                performance: "Point A (Fannie Mae — to be filled)",
+                robustness: "Point B (Fannie Mae — to be filled)",
+                interpretability: "Point C (Fannie Mae — to be filled)"
+              };
+
+        if (achPerformanceEl) achPerformanceEl.textContent = cfg.performance;
+        if (achRobustnessEl) achRobustnessEl.textContent = cfg.robustness;
+        if (achInterpretabilityEl) achInterpretabilityEl.textContent = cfg.interpretability;
+      }
+
+      function render() {
+        const datasetLabel = getDatasetLabel(state.dataset);
+        const modelLabel = getModelLabel(state.model);
+        const levelLabel = formatLevel(state.level);
+        if (titleEl) titleEl.textContent = datasetLabel + " · " + modelLabel + " · " + levelLabel;
+
+        renderAchievements();
+
+        if (!db) {
+          setStatus("Loading plot data…");
+          return;
+        }
+        const series = findSeries();
+        if (!series) {
+          clearCanvas();
+          setStatus("No series found for this selection. Update assets/dashboard_data.json.");
+          return;
+        }
+        drawLineChart(series);
       }
 
       const toggles = document.querySelectorAll(".hero-toggle");
@@ -279,7 +368,15 @@
         });
       });
 
-      render();
+      fetch(DATA_URL)
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+          db = json;
+          render();
+        })
+        .catch(function () {
+          setStatus("Failed to load plot data. Ensure assets/dashboard_data.json exists.");
+        });
     })();
   </script>
 </body>
